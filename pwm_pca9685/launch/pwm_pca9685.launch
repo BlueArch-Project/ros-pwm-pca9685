@@ -1,0 +1,6 @@
+<launch>
+  <node name="pca9685_node" pkg="pwm_pca9685" type="pca9685_node" output="screen">
+    <param name="i2c_address" value="0x40"/>
+    <param name="pwm_frequency" value="60"/>
+  </node>
+</launch>
