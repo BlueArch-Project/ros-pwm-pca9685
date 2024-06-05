@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <launch>
-  <node name="pca9685_node" pkg="pwm_pca9685" type="pca9685_node" output="screen">
+  <node ns="pwm" name="pca9685_node" pkg="pwm_pca9685" type="pca9685_node" output="screen">
     <param name="i2c_address" value="0x40"/>
-    <param name="pwm_frequency" value="60"/>
+    <param name="pwm_frequency" value="100"/>
   </node>
 </launch>
