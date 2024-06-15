@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
   <node ns="pwm" name="pca9685_node" pkg="pwm_pca9685" type="pca9685_node" output="screen">
-    <param name="i2c_address" value="0x40"/>
-    <param name="pwm_frequency" value="100"/>
+    <rosparam command="load" file="$(find pwm_pca9685)/config/config.yaml"/>
   </node>
 </launch>
