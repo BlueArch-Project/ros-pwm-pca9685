@@ -18,7 +18,7 @@ PCA9685Activity::PCA9685Activity(ros::NodeHandle &_nh, ros::NodeHandle &_nh_priv
     nh_priv.param("address", param_address, (int)PCA9685_ADDRESS);
     nh_priv.param("frequency", param_frequency, (int)1600);
     nh_priv.param("frame_id", param_frame_id, (std::string)"imu");
-    
+
     // timeouts in milliseconds per channel
     nh_priv.param("timeout", param_timeout, std::vector<int>{
         5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000,
@@ -179,14 +179,23 @@ bool PCA9685Activity::spinOnce() {
       }
     }
 
-    return true;    
+    return true;
 }
 
 bool PCA9685Activity::stop() {
-    ROS_INFO("stopping");
+    // Set all channels to timeout_value
+    for (int channel = 0; channel < 16; ++channel) {
+        set(channel, param_timeout_value[channel]);
+    }
+
+    // Close the I2C file if open
+    if (file >= 0) {
+        close(file);
+    }
 
     if(sub_command) sub_command.shutdown();
 
+    ROS_INFO("stopped");
     return true;
 }
 
